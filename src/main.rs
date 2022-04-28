@@ -1,4 +1,5 @@
 mod routes;
+mod syntax;
 
 use std::env;
 use std::io::Write;
