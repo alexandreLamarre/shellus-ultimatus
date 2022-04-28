@@ -1,3 +1,4 @@
+mod config;
 mod keybinds;
 mod routes;
 mod syntax;
