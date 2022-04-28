@@ -1,3 +1,5 @@
+mod routes;
+
 use std::env;
 use std::io::Write;
 use std::io::{self};
