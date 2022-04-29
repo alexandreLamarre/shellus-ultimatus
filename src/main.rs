@@ -9,9 +9,18 @@ use std::io::{self};
 use std::path::Path;
 use std::process::{Child, Command, Stdio};
 
-fn main() -> io::Result<()> {
+#[tokio::main]
+async fn main() -> io::Result<()> {
     let mut stdout = io::stdout();
     let stdin = io::stdin();
+    let port = 3000; // backend local host port to listen on
+    let app = routes::setup_routes(port).await;
+
+    // bind axum server to the port
+    axum::Server::bind(&format!("0.0.0.0:{:}", port).parse().unwrap())
+        .serve(app.into_make_service())
+        .await
+        .unwrap();
     loop {
         // use the `>` character as the prompt
         // need to explicitly flush this to ensure it prints before read_line
